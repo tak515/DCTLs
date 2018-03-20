@@ -281,7 +281,7 @@ return make_float2(rotX, rotY);
 __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTURE__ p_TexR, __TEXTURE__ p_TexG, __TEXTURE__ p_TexB)
 {
 
-float grainsize = 2.1f;
+float grainsize = 1.0f;
 float Grainamount = 2.0f;
 float Colour_Amount = 0.6f;
 float Luma_Amount = 1.0f;
