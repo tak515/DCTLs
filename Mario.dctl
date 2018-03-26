@@ -1578,7 +1578,7 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTU
 	float Y = (float)p_Y;
 	float2 resolution = make_float2((float)p_Width, (float)p_Height);
 
-	float2 uv = make_float2(X, Y);
+	float2 uv = make_float2(X / resolution.x, Y / resolution.y);
     // we want to see at least 256x224 (overscan) and we want multiples of pixel size
     float resMultX  = _floor( resolution.x / 256.0f );
     float resMultY  = _floor( resolution.y / 224.0f );
@@ -1598,17 +1598,15 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTU
     }    
 
     // CRT effects (curvature, vignette, scanlines and CRT grille)
-    /*
+    
 	float2 crtUV = CRTCurveUV( uv );
     if ( crtUV.x < 0.0f || crtUV.x > 1.0f || crtUV.y < 0.0f || crtUV.y > 1.0f )
     {
         color = make_float3( 0.0f, 0.0f, 0.0f );
     }
-	*/
 	
-	//float2 crtUV = CRTCurveUV( uv );
-    //DrawVignette( &color, crtUV );
-    //DrawScanline( &color, uv, time );
+    DrawVignette( &color, crtUV );
+    DrawScanline( &color, uv, time );
     
 	return color;
  
