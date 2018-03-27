@@ -439,8 +439,8 @@ return -b - _sqrtf(h);
 __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTURE__ p_TexR, __TEXTURE__ p_TexG, __TEXTURE__ p_TexB)
 {
 
-float iTime = _tex2D(p_TexR, 500, 500) / 24.0f;
-//float iTime = _tex2D(p_TexR, 500, 500) * 100.0f;
+//float iTime = _tex2D(p_TexR, 500, 500) / 24.0f;
+float iTime = _tex2D(p_TexR, 500, 500) * 20.0f;
 p_Y = p_Height - p_Y;
 float X = (float)p_X;
 float Y = (float)p_Y;
