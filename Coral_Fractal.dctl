@@ -231,26 +231,27 @@ multi(make_float4(t.x * axis.z - s * axis.y, t.y * axis.z + s * axis.x, c + t.z 
 make_float4(offset, 1.0f));
 }
 
-__DEVICE__ float KIFS(float3 p, float s, mat4 N)
+__DEVICE__ mat4 M;
+
+__DEVICE__ float KIFS(float3 p, float s)
 {
 p = divide(p, s);
-N = transpose(N);
 for(int i = 0; i < KIFS_ITERATIONS; i++)
 {	
 p = abs(p);	
-float4 yo = multi(N, make_float4(p, 1.0f));
+float4 yo = multi(M, make_float4(p, 1.0f));
 p = make_float3(yo.x, yo.y, yo.z);                             
 }
 return ((length(p) - 1.0f) * (_powf(1.5f, -(float)KIFS_ITERATIONS))) * s;
 }
 
-__DEVICE__ void combineKIFS(float3 p, float s, float3 c, float4 *o, mat4 N)
+__DEVICE__ void combineKIFS(float3 p, float s, float3 c, float4 *o)
 {
-float d = KIFS(p, s, N);
+float d = KIFS(p, s);
 if(d < o->x) *o = make_float4(d, c);
 }
 
-__DEVICE__ float4 scene(float3 p, mat4 N)
+__DEVICE__ float4 scene(float3 p)
 {
 float3 p2 = minus(p, add(sp, multi(sp, SF)));
 float3 p3 = minus(p, add(sp, multi(sp, SF*2.0f), multi(sp, SF*SF)));
@@ -260,22 +261,22 @@ float3 p6 = minus(p, add(sp, multi(sp, SF*2.0f), multi(sp, SF*SF*2.0f), multi(sp
 
 float4 o = make_float4(10000.0f, 0.0f, 0.0f, 0.0f);
 
-combineKIFS(p, 1.0f, COLOUR, &o, N);
-combineKIFS(p2, SF, COLOUR, &o, N);
-combineKIFS(p3, SF*SF, COLOUR, &o, N);
-combineKIFS(p4, SF*SF*SF, COLOUR, &o, N);
-combineKIFS(p5, SF*SF*SF*SF, COLOUR, &o, N);
+combineKIFS(p, 1.0f, COLOUR, &o);
+combineKIFS(p2, SF, COLOUR, &o);
+combineKIFS(p3, SF*SF, COLOUR, &o);
+combineKIFS(p4, SF*SF*SF, COLOUR, &o);
+combineKIFS(p5, SF*SF*SF*SF, COLOUR, &o);
 
 return o;       
 }
 
 __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTURE__ p_TexR, __TEXTURE__ p_TexG, __TEXTURE__ p_TexB)
 {
-
 //float iTime = _tex2D(p_TexR, 500, 500) / 24;
 float iTime = _tex2D(p_TexR, 500, 500) * 10;
 
-mat4 M = calc_transform(make_float3(-0.4f, -0.4f, -0.55f), normalize(make_float3(1.0f, 1.0f, 1.0f)), 40.0f, 1.5f);
+M = calc_transform(make_float3(-0.4f, -0.4f, -0.55f), normalize(make_float3(1.0f, 1.0f, 1.0f)), 40.0f, 1.5f);
+M = transpose(M);
 
 float X = (float)p_X;
 float Y = (float)(p_Height - p_Y);
@@ -301,7 +302,7 @@ float lod = 0.56f /_fmaxf(resolution.x, resolution.y);
 
 for(int i=0; i < MAX_RAY_STEPS; i++) {
 if(d < lod * ray_length) continue;
-s = scene(cam, M);
+s = scene(cam);
 d = s.x;
 cam = add(cam, multi(d, dir));
 ray_length += d;
