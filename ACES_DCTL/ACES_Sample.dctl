@@ -1,0 +1,27 @@
+// ACES Sample DCTL
+
+//#include "ACES_LIB/ACES_functions.h"
+//#include "ACES_LIB/ACES_Utilities_Color.h"
+//#include "ACES_LIB/ACES_Transform_Common.h"
+//#include "ACES_LIB/ACES_Tonescales.h"
+#include "ACES_LIB/ACES_IDT.h"
+#include "ACES_LIB/ACES_LMT.h"
+#include "ACES_LIB/ACES_RRT.h"
+#include "ACES_LIB/ACES_ODT.h"
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+float3 aces = make_float3(p_R, p_G, p_B);
+
+//aces = IDT_Alexa_v3_logC_EI800(aces);
+//aces = ACES_to_ACEScct(aces);
+//aces = LMT_Bleach_Bypass(aces); // ACEScct in, ACEScct out
+//aces = ACEScct_to_ACES(aces);
+//aces = RRT(aces);
+//aces = InvRRT(aces);
+//aces = ODT_Rec709_100_dim(aces);
+//aces = InvODT_Rec709_100nits_dim(aces);
+
+return aces;
+
+}

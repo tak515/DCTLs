@@ -1,0 +1,21 @@
+// LMT Analytic 1a
+
+#include "ACES_LIB/ACES_LMT.h"
+
+
+__CONSTANT__ float3 SLOPE = {0.85f, 0.85f, 0.85f};
+__CONSTANT__ float3 OFFSET = {0.024f, 0.024f, 0.024f};
+__CONSTANT__ float3 POWER = {0.9f, 0.9f, 0.9f};
+__CONSTANT__ float SAT = 0.94f;
+
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+
+float3 aces = make_float3(p_R, p_G, p_B);
+
+aces = ASCCDL_inACEScct( aces, SLOPE, OFFSET, POWER, SAT);
+
+return aces;
+
+}

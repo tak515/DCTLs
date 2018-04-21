@@ -1,0 +1,21 @@
+// LMT Analytic 1c
+
+#include "ACES_LIB/ACES_LMT.h"
+
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+
+float3 aces = make_float3(p_R, p_G, p_B);
+
+// Adjust contrast
+const float GAMMA = 0.6f;
+aces = gamma_adjust_linear( aces, GAMMA);
+
+// Adjust saturation
+const float SAT_FACTOR = 0.85f;
+aces = sat_adjust( aces, SAT_FACTOR);
+
+return aces;
+    
+}

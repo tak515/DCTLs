@@ -1,0 +1,24 @@
+// "Bleach bypass" look
+
+#include "ACES_LIB/ACES_LMT.h"
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+float3 aces = make_float3(p_R, p_G, p_B);
+aces = ACEScct_to_ACES(aces);
+
+float3 a, b, blend;
+a = sat_adjust( aces, 0.9f);
+a = mult_f_f3( 2.0f, a);
+					  
+b = sat_adjust( aces, 0.0f);
+b = gamma_adjust_linear( b, 1.2f);
+
+a = ACES_to_ACEScct( a);
+b = ACES_to_ACEScct( b);
+
+blend = overlay_f3( a, b);
+
+return blend;
+
+}
