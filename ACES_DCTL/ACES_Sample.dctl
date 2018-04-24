@@ -23,8 +23,9 @@ float3 aces = make_float3(p_R, p_G, p_B);
 //aces = ACES_to_ACESproxy12(aces);
 
 //aces = LMT_Analytic_3(aces);
-aces = LMT_Analytic_4(aces);
+//aces = LMT_Analytic_4(aces);
 
+// Custom LMT
 /*
 
 aces = scale_C( aces, 0.7f);
@@ -59,7 +60,7 @@ aces = scale_C_at_H( aces, 240.0f, 120.0f, 1.4f);
 //aces = InvODT_Rec2020_ST2084_1000nits(aces);
 //aces = InvODT_RGBmonitor_100nits_dim(aces);
 
-// Output Transform
+// Custom Output Transform
 /*
 
 float Y_MIN = 0.0001f;
