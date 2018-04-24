@@ -1060,4 +1060,21 @@ return M;
 }
 */
 
+__DEVICE__ inline float SLog3_to_linear( float SLog )
+{
+	float out;
+
+	if (SLog >= 171.2102946929f / 1023.0f)
+	{
+		out = _powf(10.0f, (SLog * 1023.0f - 420.0f) / 261.5f) * (0.18f + 0.01f) - 0.01f;
+	}
+	else
+	{
+		out = (SLog * 1023.0f - 95.0f) * 0.01125000f / (171.2102946929f - 95.0f);
+	}
+
+	return out;
+}
+
+
 #endif
