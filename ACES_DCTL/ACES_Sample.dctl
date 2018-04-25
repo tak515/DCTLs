@@ -28,17 +28,17 @@ float3 aces = make_float3(p_R, p_G, p_B);
 // Custom LMT
 /*
 
-aces = scale_C( aces, 0.7f);
+aces = scale_C( aces, 1.0f);
 
-float3 SLOPE = make_float3(1.0f, 1.0f, 0.94f);
-float3 OFFSET = make_float3(0.0f, 0.0f, 0.02f);
+float3 SLOPE = make_float3(1.0f, 1.0f, 1.0f);
+float3 OFFSET = make_float3(0.0f, 0.0f, 0.0f);
 float3 POWER = make_float3(1.0f, 1.0f, 1.0f);
 
 aces = ASCCDL_inACEScct( aces, SLOPE, OFFSET, POWER);
 
-aces = gamma_adjust_linear( aces, 1.5f, 0.18f);
-aces = rotate_H_in_H( aces, 0.0f, 30.0f, 5.0f);
-aces = scale_C_at_H( aces, 240.0f, 120.0f, 1.4f);
+aces = gamma_adjust_linear( aces, 1.0f, 0.18f);
+aces = rotate_H_in_H( aces, 180.0f, 30.0f, 0.0f);
+aces = scale_C_at_H( aces, 240.0f, 120.0f, 1.0f);
 
 */
 
