@@ -9,7 +9,7 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p
 {
 float3 aces = make_float3(p_R, p_G, p_B);
 
-aces = IDT_Alexa_v3_logC_EI800(aces);
+//aces = IDT_Alexa_v3_logC_EI800(aces);
 //aces = IDT_Alexa_v3_raw_EI800_CCT6500(aces);
 //aces = IDT_Sony_SLog3_SGamut3(aces);
 //aces = IDT_Sony_SLog3_SGamut3Cine(aces);
@@ -22,7 +22,7 @@ aces = IDT_Alexa_v3_logC_EI800(aces);
 //aces = ACES_to_ACESproxy10(aces);
 //aces = ACES_to_ACESproxy12(aces);
 
-aces = LMT_Analytic_3(aces);
+//aces = LMT_Analytic_3(aces);
 //aces = LMT_Analytic_4(aces);
 
 // Custom LMT
@@ -48,10 +48,10 @@ aces = scale_C_at_H( aces, 30.0f, 60.0f, 1.0f);
 //aces = ACESproxy10_to_ACES(aces);
 //aces = ACESproxy12_to_ACES(aces);
 
-aces = RRT(aces);
+//aces = RRT(aces);
 //aces = InvRRT(aces);
 
-aces = ODT_Rec709_100nits_dim(aces);
+//aces = ODT_Rec709_100nits_dim(aces);
 //aces = ODT_Rec2020_100nits_dim(aces);
 //aces = ODT_Rec2020_ST2084_1000nits(aces);
 //aces = ODT_RGBmonitor_100nits_dim(aces);
