@@ -1,7 +1,6 @@
 #ifndef __ACES_LMT_COMMON_H_INCLUDED__
 #define __ACES_LMT_COMMON_H_INCLUDED__
 
-//__CONSTANT__ float PIE = 3.14159265358979323846264338327950288f;
 __CONSTANT__ float X_BRK = 0.0078125f;
 __CONSTANT__ float Y_BRK = 0.155251141552511f;
 __CONSTANT__ float A = 10.5402377416545f;
@@ -70,7 +69,7 @@ __DEVICE__ inline float3 ASCCDL_inACEScct
     // Saturation
     float luma = 0.2126f * acescct.x + 0.7152f * acescct.y + 0.0722f * acescct.z;
 
-    float satClamp = clamp( SAT, 0.0f, 31744.0f); //HALF_POS_INF);    
+    float satClamp = clamp( SAT, 0.0f, 1.0f);
     acescct.x = luma + satClamp * (acescct.x - luma);
     acescct.y = luma + satClamp * (acescct.y - luma);
     acescct.z = luma + satClamp * (acescct.z - luma);
@@ -239,9 +238,9 @@ __DEVICE__ inline float3 rotate_H_in_H
     float f_H = cubic_basis_shaper( centeredHue, widthH);
 
     float old_hue = centeredHue;
-    float new_hue = centeredHue + degreesShift;
+    float new_hue = centeredHue - degreesShift;
     float2 table[2] = { {0.0f, old_hue}, 
-                          {1.0f, new_hue} };
+                    	{1.0f, new_hue} };
     float blended_hue = interpolate1D( table, f_H);
         
     if (f_H > 0.0f) new_ych.z = uncenter_hue(blended_hue, centerH);

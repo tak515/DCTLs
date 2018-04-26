@@ -9,7 +9,7 @@
 #define HALF_MIN_EXP	-13
 #define HALF_RADIX		2
 #define HALF_POS_INF	31744.0f
-//#define HALF_MIN		5.96046448e-08 // Smallest positive half
+#define HALF_MIN		5.96046448e-08 // Smallest positive half
 #define HALF_MIN_NORM	6.10351562e-05 // Smallest positive normalized half
 #define HALF_MAX		65504.0f        // Largest positive half
 #define HALF_EPSILON	0.00097656f // Smallest positive e for which half (1.0 + e) != half (1.0)
@@ -17,22 +17,26 @@
 #define HALF_POS_INF	31744.0f
 #define HALF_NEG_INF	64512.0f
 
+#ifndef M_PI
+#define M_PI			3.14159265358979323846264338327950288
+#endif
+
 __DEVICE__ inline int size(float array[])
 {
 int Size = sizeof(array)/sizeof(array[0]);
-return Size;
+return Size + 1;
 }
 
 __DEVICE__ inline int size(float2 array[])
 {
 int Size = sizeof(array)/sizeof(array[0]);
-return Size;
+return Size + 1;
 }
 
 __DEVICE__ inline int size(float3 array[])
 {
 int Size = sizeof(array)/sizeof(array[0]);
-return Size;
+return Size + 1;
 }
 
 typedef struct
