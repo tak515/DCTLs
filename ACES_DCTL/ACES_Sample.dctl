@@ -9,12 +9,17 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p
 {
 float3 aces = make_float3(p_R, p_G, p_B);
 
+//aces = ACEScc_to_ACES(aces);
+//aces = ACEScct_to_ACES(aces);
 //aces = IDT_Alexa_v3_logC_EI800(aces);
 //aces = IDT_Alexa_v3_raw_EI800_CCT6500(aces);
 //aces = IDT_Sony_SLog3_SGamut3(aces);
 //aces = IDT_Sony_SLog3_SGamut3Cine(aces);
 //aces = ADX10_to_ACES(aces);
 //aces = ADX16_to_ACES(aces);
+//aces = IDT_Panasonic_V35(aces);
+//aces = IDT_Canon_C500_A_D55(aces);
+//aces = IDT_Canon_C500_A_Trig(aces);
 
 //aces = ACES_to_ACEScc(aces);
 //aces = ACES_to_ACEScct(aces);
@@ -37,8 +42,12 @@ float3 POWER = make_float3(1.0f, 1.0f, 1.0f);
 aces = ASCCDL_inACEScct( aces, SLOPE, OFFSET, POWER);
 
 aces = gamma_adjust_linear( aces, 1.0f, 0.18f);
-aces = rotate_H_in_H( aces, 30.0f, 60.0f, 0.0f);
-aces = scale_C_at_H( aces, 30.0f, 60.0f, 1.0f);
+aces = rotate_H_in_H( aces, 330.0f, 60.0f, 0.0f);
+aces = rotate_H_in_H( aces, 180.0f, 60.0f, 0.0f);
+aces = rotate_H_in_H( aces, 240.0f, 60.0f, 0.0f);
+aces = scale_C_at_H( aces, 330.0f, 60.0f, 1.0f);
+aces = rotate_H_in_H( aces, 0.0f, 60.0f, 0.0f);
+aces = scale_C_at_H( aces, 180.0f, 60.0f, 1.0f);
 
 */
 
@@ -51,6 +60,8 @@ aces = scale_C_at_H( aces, 30.0f, 60.0f, 1.0f);
 //aces = RRT(aces);
 //aces = InvRRT(aces);
 
+//aces = ACES_to_ACEScc(aces);
+//aces = ACES_to_ACEScct(aces);
 //aces = ODT_Rec709_100nits_dim(aces);
 //aces = ODT_Rec2020_100nits_dim(aces);
 //aces = ODT_Rec2020_ST2084_1000nits(aces);
@@ -120,12 +131,16 @@ aces = outputTransform( aces, Y_MIN, Y_MID, Y_MAX, DISPLAY_PRI, LIMITING_PRI, EO
 //aces = RRTODT_Rec2020_1000nits_15nits_ST2084(aces);
 //aces = RRTODT_Rec2020_2000nits_15nits_ST2084(aces);
 //aces = RRTODT_Rec2020_4000nits_15nits_ST2084(aces);
+//aces = RRTODT_Rec709_100nits_15nits_BT1886(aces);
+//aces = RRTODT_Rec709_100nits_15nits_sRGB(aces);
 
 //aces = InvRRTODT_P3D65_108nits_7_2nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_1000nits_15nits_HLG(aces);
 //aces = InvRRTODT_Rec2020_1000nits_15nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_2000nits_15nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_4000nits_15nits_ST2084(aces);
+//aces = InvRRTODT_Rec709_100nits_15nits_BT1886(aces);
+//aces = InvRRTODT_Rec709_100nits_15nits_sRGB(aces);
 
 return aces;
 

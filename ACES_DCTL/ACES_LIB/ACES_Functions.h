@@ -9,7 +9,7 @@
 #define HALF_MIN_EXP	-13
 #define HALF_RADIX		2
 #define HALF_POS_INF	31744.0f
-#define HALF_MIN		5.96046448e-08 // Smallest positive half
+//#define HALF_MIN		5.96046448e-08 // Smallest positive half
 #define HALF_MIN_NORM	6.10351562e-05 // Smallest positive normalized half
 #define HALF_MAX		65504.0f        // Largest positive half
 #define HALF_EPSILON	0.00097656f // Smallest positive e for which half (1.0 + e) != half (1.0)
@@ -1080,5 +1080,22 @@ __DEVICE__ inline float SLog3_to_linear( float SLog )
 	return out;
 }
 
+__DEVICE__ inline float vLogToLinScene( float x)
+{
+	const float cutInv = 0.181f;
+	const float b = 0.00873f;
+	const float c = 0.241514f;
+	const float d = 0.598206f;
+	
+	if (x <= cutInv)
+		return (x - 0.125f) / 5.6f;
+	else
+		return _powf(10.0f, (x - d) / c) - b;
+}
+
+__DEVICE__ inline float CanonLog_to_linear ( float clog_ire)
+{
+return (_powf(10.0f, (clog_ire - 0.0730597f) / 0.529136f) - 1) / 10.1596f;
+}
 
 #endif

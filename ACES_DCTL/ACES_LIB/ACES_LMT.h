@@ -21,7 +21,6 @@
 
 __DEVICE__ inline float3 LMT_Bleach_Bypass( float3 aces)
 {
-aces = ACEScct_to_ACES(aces);
 
 float3 a, b, blend;
 a = sat_adjust( aces, 0.9f);

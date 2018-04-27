@@ -69,7 +69,7 @@ __DEVICE__ inline float3 ASCCDL_inACEScct
     // Saturation
     float luma = 0.2126f * acescct.x + 0.7152f * acescct.y + 0.0722f * acescct.z;
 
-    float satClamp = clamp( SAT, 0.0f, 1.0f);
+    float satClamp = _saturatef( SAT);
     acescct.x = luma + satClamp * (acescct.x - luma);
     acescct.y = luma + satClamp * (acescct.y - luma);
     acescct.z = luma + satClamp * (acescct.z - luma);
@@ -186,8 +186,8 @@ __DEVICE__ inline float3 scale_C_at_H
 )
 {
     float3 new_rgb = rgb;
-    
     float3 ych = rgb_2_ych( rgb);
+    centerH = 360.0f - centerH;
 
     if (ych.y > 0.0f) {  // Only do the chroma adjustment if pixel is non-neutral
 
@@ -233,7 +233,8 @@ __DEVICE__ inline float3 rotate_H_in_H
 {
     float3 ych = rgb_2_ych( rgb);
     float3 new_ych = ych;
-
+    
+	centerH = 360.0f - centerH;
     float centeredHue = center_hue( ych.z, centerH);
     float f_H = cubic_basis_shaper( centeredHue, widthH);
 
