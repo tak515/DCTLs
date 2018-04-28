@@ -9,7 +9,11 @@
 #define HALF_MIN_EXP	-13
 #define HALF_RADIX		2
 #define HALF_POS_INF	31744.0f
-//#define HALF_MIN		5.96046448e-08 // Smallest positive half
+
+#ifndef HALF_MIN
+#define HALF_MIN		5.96046448e-08 // Smallest positive half
+#endif
+
 #define HALF_MIN_NORM	6.10351562e-05 // Smallest positive normalized half
 #define HALF_MAX		65504.0f        // Largest positive half
 #define HALF_EPSILON	0.00097656f // Smallest positive e for which half (1.0 + e) != half (1.0)
