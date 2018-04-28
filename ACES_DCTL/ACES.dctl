@@ -1,0 +1,500 @@
+// ACESPlugin DCTL export 
+// Should be placed in ACES_DCTL folder 
+ 
+#include "ACES_LIB/ACES_IDT.h" 
+#include "ACES_LIB/ACES_LMT.h" 
+#include "ACES_LIB/ACES_RRT.h" 
+#include "ACES_LIB/ACES_ODT.h" 
+ 
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) 
+{ 
+int Direction = 0;		// 0 == Standard , 1 == Inverse 
+int Idt = 0;			// 0 == Bypass 
+int AcesIn = 0;			// 0 == Bypass 
+int Lmt = 0;			// 0 == Bypass , 1 == Custom 
+int AcesOut = 0;		// 0 == Bypass 
+int Rrt = 0;			// 0 == Bypass , 1 == Enable 
+int InvRrt = 0;			// 0 == Bypass , 1 == Enable 
+int Odt = 0;			// 0 == Bypass , 1 == Custom 
+int InvOdt = 0;			// 0 == Bypass , 1 == Custom 
+ 
+float Exposure = 0.000000f; 
+float Color_Boost = 1.000000f; 
+float Slope = 1.000000f; 
+float Offset = 0.000000f; 
+float Power = 1.000000f; 
+ 
+float Contrast = 1.000000f; 
+float Pivot = 0.180000f; 
+float RotateH1 = 330.000000f; 
+float Range1 = 60.000000f; 
+float Shift1 = 0.000000f; 
+float RotateH2 = 150.000000f; 
+float Range2 = 60.000000f; 
+float Shift2 = 0.000000f; 
+float RotateH3 = 240.000000f; 
+float Range3 = 60.000000f; 
+float Shift3 = 0.000000f; 
+ 
+float HueCH1 = 330.000000f; 
+float RangeCH1 = 60.000000f; 
+float ScaleCH1 = 1.000000f; 
+float RotateH4 = 0.000000f; 
+float Range4 = 60.000000f; 
+float Shift4 = 0.000000f; 
+float HueCH2 = 150.000000f; 
+float RangeCH2 = 60.000000f; 
+float ScaleCH2 = 1.000000f; 
+ 
+float Black_Luminance = 0.000100f; 
+float Midpoint_Luminance = 15.000000f; 
+float Peak_white_Luminance = 1000.000000f; 
+ 
+int Display = 0;	// 0 == REC2020_PRI , 1 == P3D60_PRI , 2 == P3D65_PRI , 3 == P3DCI_PRI , 4 == REC709_PRI 
+int Limit = 0;  	// 0 == REC2020_PRI , 1 == P3D60_PRI , 2 == P3D65_PRI , 3 == P3DCI_PRI , 4 == REC709_PRI 
+int Eotf = 0; 		// 0 == ST-2084 (PQ) 
+					// 1 == BT.1886 (Rec.709/2020 settings) 
+					// 2 == sRGB (mon_curve w/ presets) 
+					// 3 == gamma 2.6 
+					// 4 == linear (no EOTF) 
+					// 5 == HLG 
+int Surround = 1; 	// 0 == Dark , 1 == Dim , 2 == Normal 
+ 
+int Stretch_Black_Luminance = 1; 
+int D60sim = 0; 
+int Legal_Range = 0; 
+ 
+float3 aces = make_float3(p_R, p_G, p_B); 
+ 
+if(Direction == 0) 
+{ 
+ 
+switch (Idt) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+aces = ACEScc_to_ACES(aces); 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = ACEScct_to_ACES(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = IDT_Alexa_v3_logC_EI800(aces); 
+} 
+break; 
+ 
+case 4: 
+{ 
+aces = IDT_Alexa_v3_raw_EI800_CCT65(aces); 
+} 
+break; 
+ 
+case 5: 
+{ 
+aces = ADX10_to_ACES(aces); 
+} 
+break; 
+ 
+case 6: 
+{ 
+aces = ADX16_to_ACES(aces); 
+} 
+break; 
+ 
+case 7: 
+{ 
+aces = IDT_Sony_SLog3_SGamut3(aces); 
+} 
+break; 
+ 
+case 8: 
+{ 
+aces = IDT_Sony_SLog3_SGamut3Cine(aces); 
+} 
+break; 
+ 
+case 9: 
+{ 
+aces = IDT_Panasonic_V35(aces); 
+} 
+break; 
+ 
+case 10: 
+{ 
+aces = IDT_Canon_C500_A_D55(aces); 
+} 
+break; 
+ 
+case 11: 
+{ 
+aces = IDT_Canon_C500_A_Trig(aces); 
+} 
+} 
+ 
+if(Exposure != 0.0f) 
+{ 
+aces.x *= _powf(2.0f, Exposure); 
+aces.y *= _powf(2.0f, Exposure); 
+aces.z *= _powf(2.0f, Exposure); 
+} 
+ 
+switch (AcesIn) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+aces = ACES_to_ACEScc(aces); 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = ACES_to_ACEScct(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = ACES_to_ACEScg(aces); 
+} 
+break; 
+ 
+case 4: 
+{ 
+aces = ACES_to_ACESproxy10(aces); 
+} 
+break; 
+ 
+case 5: 
+{ 
+aces = ACES_to_ACESproxy12(aces); 
+} 
+} 
+ 
+switch (Lmt) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+// Custom LMT 
+if(Color_Boost != 1.0f) 
+aces = scale_C(aces, Color_Boost); 
+ 
+if(!(Slope == 1.0f && Offset == 0.0f && Power == 1.0f)) 
+{ 
+float3 SLOPE = {Slope, Slope, Slope}; 
+float3 OFFSET = {Offset, Offset, Offset}; 
+float3 POWER = {Power, Power, Power}; 
+aces = ASCCDL_inACEScct(aces, SLOPE, OFFSET, POWER); 
+} 
+ 
+if(Contrast != 1.0f) 
+aces = gamma_adjust_linear(aces, Contrast, Pivot); 
+ 
+if(Shift1 != 0.0f) 
+aces = rotate_H_in_H(aces, RotateH1, Range1, Shift1); 
+ 
+if(Shift2 != 0.0f) 
+aces = rotate_H_in_H(aces, RotateH2, Range2, Shift2); 
+ 
+if(Shift3 != 0.0f) 
+aces = rotate_H_in_H(aces, RotateH3, Range3, Shift3); 
+ 
+if(ScaleCH1 != 1.0f) 
+aces = scale_C_at_H(aces, HueCH1, RangeCH1, ScaleCH1); 
+ 
+if(Shift4 != 0.0f) 
+aces = rotate_H_in_H(aces, RotateH4, Range4, Shift4); 
+ 
+if(ScaleCH2 != 1.0f) 
+aces = scale_C_at_H(aces, HueCH2, RangeCH2, ScaleCH2); 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = LMT_Analytic_4(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = LMT_Analytic_3(aces); 
+} 
+} 
+ 
+switch (AcesOut) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+aces = ACEScc_to_ACES(aces); 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = ACEScct_to_ACES(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = ACEScg_to_ACES(aces); 
+} 
+break; 
+ 
+case 4: 
+{ 
+aces = ACESproxy10_to_ACES(aces); 
+} 
+break; 
+ 
+case 5: 
+{ 
+aces = ACESproxy12_to_ACES(aces); 
+} 
+} 
+ 
+if(Rrt == 1) 
+{ 
+aces = RRT(aces); 
+} 
+ 
+switch (Odt) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+// Custom RRTODT 
+float Y_MIN = Black_Luminance; 
+float Y_MID = Midpoint_Luminance; 
+float Y_MAX = Peak_white_Luminance; 
+ 
+Chromaticities DISPLAY_PRI = Display == 0 ? REC2020_PRI : Display == 1 ? P3D60_PRI : Display == 2 ? P3D65_PRI : Display == 3 ? P3DCI_PRI : REC709_PRI; 
+Chromaticities LIMITING_PRI = Limit == 0 ? REC2020_PRI : Limit == 1 ? P3D60_PRI : Limit == 2 ? P3D65_PRI : Limit == 3 ? P3DCI_PRI : REC709_PRI; 
+ 
+int EOTF = Eotf; 
+				 
+int SURROUND = Surround; 
+					            
+bool STRETCH_BLACK = Stretch_Black_Luminance == 1; 
+bool D60_SIM = D60sim == 1; 
+bool LEGAL_RANGE = Legal_Range == 1; 
+ 
+aces = outputTransform( aces, Y_MIN, Y_MID, Y_MAX, DISPLAY_PRI, LIMITING_PRI, EOTF, SURROUND, STRETCH_BLACK, D60_SIM, LEGAL_RANGE ); 
+ 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = ACES_to_ACEScc(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = ACES_to_ACEScct(aces); 
+} 
+break; 
+ 
+case 4: 
+{ 
+aces = ODT_Rec709_100nits_dim(aces); 
+} 
+break; 
+ 
+case 5: 
+{ 
+aces = ODT_Rec2020_100nits_dim(aces); 
+} 
+break; 
+ 
+case 6: 
+{ 
+aces = ODT_Rec2020_ST2084_1000nits(aces); 
+} 
+break; 
+ 
+case 7: 
+{ 
+aces = ODT_RGBmonitor_100nits_dim(aces); 
+} 
+break; 
+ 
+case 8: 
+{ 
+aces = RRTODT_P3D65_108nits_7_2nits_ST2084(aces); 
+} 
+break; 
+ 
+case 9: 
+{ 
+aces = RRTODT_Rec2020_1000nits_15nits_HLG(aces); 
+} 
+break; 
+ 
+case 10: 
+{ 
+aces = RRTODT_Rec2020_1000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 11: 
+{ 
+aces = RRTODT_Rec2020_2000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 12: 
+{ 
+aces = RRTODT_Rec2020_4000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 13: 
+{ 
+aces = RRTODT_Rec709_100nits_15nits_BT1886(aces); 
+} 
+break; 
+ 
+case 14: 
+{ 
+aces = RRTODT_Rec709_100nits_15nits_sRGB(aces); 
+} 
+} 
+ 
+} else { 
+ 
+switch (InvOdt) 
+{ 
+case 0: 
+{ 
+} 
+break; 
+ 
+case 1: 
+{ 
+// Custom InvRRTODT 
+float Y_MIN = Black_Luminance; 
+float Y_MID = Midpoint_Luminance; 
+float Y_MAX = Peak_white_Luminance; 
+ 
+Chromaticities DISPLAY_PRI = Display == 0 ? REC2020_PRI : Display == 1 ? P3D60_PRI : Display == 2 ? P3D65_PRI : Display == 3 ? P3DCI_PRI : REC709_PRI; 
+Chromaticities LIMITING_PRI = Limit == 0 ? REC2020_PRI : Limit == 1 ? P3D60_PRI : Limit == 2 ? P3D65_PRI : Limit == 3 ? P3DCI_PRI : REC709_PRI; 
+ 
+int EOTF = Eotf; 
+				 
+int SURROUND = Surround; 
+					            
+bool STRETCH_BLACK = Stretch_Black_Luminance == 1; 
+bool D60_SIM = D60sim == 1; 
+bool LEGAL_RANGE = Legal_Range == 1; 
+ 
+aces = invOutputTransform( aces, Y_MIN, Y_MID, Y_MAX, DISPLAY_PRI, LIMITING_PRI, EOTF, SURROUND, STRETCH_BLACK, D60_SIM, LEGAL_RANGE ); 
+ 
+} 
+break; 
+ 
+case 2: 
+{ 
+aces = InvODT_Rec709_100nits_dim(aces); 
+} 
+break; 
+ 
+case 3: 
+{ 
+aces = InvODT_Rec2020_100nits_dim(aces); 
+} 
+break; 
+ 
+case 4: 
+{ 
+aces = InvODT_Rec2020_ST2084_1000nits(aces); 
+} 
+break; 
+ 
+case 5: 
+{ 
+aces = InvODT_RGBmonitor_100nits_dim(aces); 
+} 
+break; 
+ 
+case 6: 
+{ 
+aces = InvRRTODT_P3D65_108nits_7_2nits_ST2084(aces); 
+} 
+break; 
+ 
+case 7: 
+{ 
+aces = InvRRTODT_Rec2020_1000nits_15nits_HLG(aces); 
+} 
+break; 
+ 
+case 8: 
+{ 
+aces = InvRRTODT_Rec2020_1000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 9: 
+{ 
+aces = InvRRTODT_Rec2020_2000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 10: 
+{ 
+aces = InvRRTODT_Rec2020_4000nits_15nits_ST2084(aces); 
+} 
+break; 
+ 
+case 11: 
+{ 
+aces = InvRRTODT_Rec709_100nits_15nits_BT1886(aces); 
+} 
+break; 
+ 
+case 12: 
+{ 
+aces = InvRRTODT_Rec709_100nits_15nits_sRGB(aces); 
+} 
+} 
+ 
+if(InvRrt == 1) 
+{ 
+aces = InvRRT(aces); 
+} 
+} 
+
+return make_float3(aces.x, aces.y, aces.z); 
+}
