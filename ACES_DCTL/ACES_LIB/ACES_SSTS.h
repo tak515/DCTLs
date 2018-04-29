@@ -203,7 +203,7 @@ __DEVICE__ inline float ssts
 
     }
 
-    return pow10(logy);
+    return _pow10f(logy);
 
 }
 
@@ -294,7 +294,7 @@ __DEVICE__ inline float inv_ssts
 
     }
 
-    return pow10( logx);
+    return _pow10f( logx);
 
 }
 

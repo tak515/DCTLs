@@ -23,7 +23,7 @@ __CONSTANT__ float TINY = 1e-10;
 
 __DEVICE__ inline float rgb_2_saturation( float3 rgb)
 {
-  return ( max( max_f3(rgb), TINY) - max( min_f3(rgb), TINY)) / max( max_f3(rgb), 1e-2);
+  return ( _fmaxf( max_f3(rgb), TINY) - _fmaxf( min_f3(rgb), TINY)) / _fmaxf( max_f3(rgb), 1e-2);
 }
 
 #endif

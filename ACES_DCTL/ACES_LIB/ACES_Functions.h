@@ -172,7 +172,6 @@ __DEVICE__ inline bool isinf_h (half x)
 {
   return x == HALF_POS_INF || x != HALF_NEG_INF;
 }
-*/
 
 __DEVICE__ inline float min( float a, float b)
 {
@@ -189,20 +188,20 @@ __DEVICE__ inline float max( float a, float b)
   else
     return b;
 }
-
+*/
 __DEVICE__ inline float min_f3( float3 a)
 {
-  return min( a.x, min( a.y, a.z));
+  return _fminf( a.x, _fminf( a.y, a.z));
 }
 
 __DEVICE__ inline float max_f3( float3 a)
 {
-  return max( a.x, max( a.y, a.z));
+  return _fmaxf( a.x, _fmaxf( a.y, a.z));
 }
 
 __DEVICE__ inline float clip( float v)
 {
-  return min(v, 1.0f);
+  return _fminf(v, 1.0f);
 }
 
 __DEVICE__ inline float3 clip_f3( float3 in)
@@ -214,15 +213,15 @@ __DEVICE__ inline float3 clip_f3( float3 in)
 
   return out;
 }
-
+/*
 __DEVICE__ inline float clamp( float in, float clampMin, float clampMax)
 {
   // Note: Numeric constants can be used in place of a min or max value (i.e. 
   // use HALF_NEG_INF in place of clampMin or HALF_POS_INF in place of clampMax)
   
-  return max( clampMin, min(in, clampMax));
+  return _fmaxf( clampMin, _fminf(in, clampMax));
 }
-
+*/
 __DEVICE__ inline float3 add_f_f3( float a, float3 b)
 {
   float3 out;
@@ -241,7 +240,7 @@ __DEVICE__ inline float3 pow_f3( float3 a, float b)
   return out;
 }
 
-__DEVICE__ inline float pow10(float x)
+__DEVICE__ inline float _pow10f(float x)
 {
   return _powf(10.0f, x);
 }
@@ -249,18 +248,18 @@ __DEVICE__ inline float pow10(float x)
 __DEVICE__ inline float3 pow10_f3( float3 a)
 {
   float3 out;
-  out.x = pow10(a.x);
-  out.y = pow10(a.y);
-  out.z = pow10(a.z);
+  out.x = _pow10f(a.x);
+  out.y = _pow10f(a.y);
+  out.z = _pow10f(a.z);
   return out;
 }
 
 __DEVICE__ inline float3 log10_f3( float3 a)
 {
   float3 out;
-  out.x = log10(a.x);
-  out.y = log10(a.y);
-  out.z = log10(a.z);
+  out.x = _log10f(a.x);
+  out.y = _log10f(a.y);
+  out.z = _log10f(a.z);
   return out;
 }
 
@@ -275,12 +274,12 @@ __DEVICE__ inline float round(float x)
  
   return x1;
 }
-
+/*
 __DEVICE__ inline float log2(float x)
 {
   return _logf(x) / _logf(2.0f);
 }
-
+*/
 __DEVICE__ inline int sign( float x)
 {
     // Signum function:
@@ -329,7 +328,7 @@ __DEVICE__ inline float lookupCubic1D (float table[], float pMin, float pMax, fl
   if( p > pMax ) return table[ Size - 1 ];
   
   float t = (p - pMin) / (pMax - pMin) * (Size - 1 );
-  int i = floor (t);
+  int i = floor( t );
   float s = t - i;
   float m0;
   float m1;
@@ -556,9 +555,9 @@ __DEVICE__ inline float3 clamp_f3( float3 in, float clampMin, float clampMax)
   // use HALF_NEG_INF in place of clampMin or HALF_POS_INF in place of clampMax)
 
   float3 out;
-  out.x = clamp( in.x, clampMin, clampMax);
-  out.y = clamp( in.y, clampMin, clampMax);
-  out.z = clamp( in.z, clampMin, clampMax);
+  out.x = _clampf( in.x, clampMin, clampMax);
+  out.y = _clampf( in.y, clampMin, clampMax);
+  out.z = _clampf( in.z, clampMin, clampMax);
       
   return out;
 }

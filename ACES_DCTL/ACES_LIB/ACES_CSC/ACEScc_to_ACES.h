@@ -17,7 +17,7 @@ __DEVICE__ inline float ACEScc_to_lin( float in)
     return (_powf( 2.0f, in * 17.52f - 9.72f) - _powf( 2.0f, -16.0f)) * 2.0f;
   else if ( in < (_log2f(HALF_MAX) + 9.72f) / 17.52f )
     return _powf( 2.0f, in * 17.52f - 9.72f);
-  else // (in >= (log2(HALF_MAX)+9.72)/17.52)
+  else // (in >= (_log2f(HALF_MAX)+9.72f)/17.52f)
     return HALF_MAX;
 }
 

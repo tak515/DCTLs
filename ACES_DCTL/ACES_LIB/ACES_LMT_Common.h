@@ -62,9 +62,9 @@ __DEVICE__ inline float3 ASCCDL_inACEScct
 
     // ASC CDL
     // Slope, Offset, Power
-    acescct.x = _powf( clamp( (acescct.x * SLOPE.x) + OFFSET.x, 0.0f, 1.0f), 1.0f / POWER.x);
-    acescct.y = _powf( clamp( (acescct.y * SLOPE.y) + OFFSET.y, 0.0f, 1.0f), 1.0f / POWER.y);
-    acescct.z = _powf( clamp( (acescct.z * SLOPE.z) + OFFSET.z, 0.0f, 1.0f), 1.0f / POWER.z);
+    acescct.x = _powf( _clampf( (acescct.x * SLOPE.x) + OFFSET.x, 0.0f, 1.0f), 1.0f / POWER.x);
+    acescct.y = _powf( _clampf( (acescct.y * SLOPE.y) + OFFSET.y, 0.0f, 1.0f), 1.0f / POWER.y);
+    acescct.z = _powf( _clampf( (acescct.z * SLOPE.z) + OFFSET.z, 0.0f, 1.0f), 1.0f / POWER.z);
     
     // Saturation
     float luma = 0.2126f * acescct.x + 0.7152f * acescct.y + 0.0722f * acescct.z;

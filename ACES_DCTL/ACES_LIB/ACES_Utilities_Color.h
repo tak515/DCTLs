@@ -277,7 +277,7 @@ __DEVICE__ inline float bt1886_f( float V, float gamma, float Lw, float Lb)
   // L = a(max[(V+b),0])^g
   float a = _powf( _powf( Lw, 1.0f/gamma) - _powf( Lb, 1.0f/gamma), gamma);
   float b = _powf( Lb, 1.0f/gamma) / ( _powf( Lw, 1.0f/gamma) - _powf( Lb, 1.0f/gamma));
-  float L = a * _powf( max( V + b, 0.0f), gamma);
+  float L = a * _powf( _fmaxf( V + b, 0.0f), gamma);
   return L;
 }
 
@@ -287,7 +287,7 @@ __DEVICE__ inline float bt1886_r( float L, float gamma, float Lw, float Lb)
   // L = a(max[(V+b),0])^g
   float a = _powf( _powf( Lw, 1.0f/gamma) - _powf( Lb, 1.0f/gamma), gamma);
   float b = _powf( Lb, 1.0f/gamma) / ( _powf( Lw, 1.0f/gamma) - _powf( Lb, 1.0f/gamma));
-  float V = _powf( max( L / a, 0.0f), 1.0f/gamma) - b;
+  float V = _powf( _fmaxf( L / a, 0.0f), 1.0f/gamma) - b;
   return V;
 }
 
@@ -355,9 +355,9 @@ __DEVICE__ inline float3 fullRange_to_smpteRange_f3( float3 rgbIn)
 __DEVICE__ inline float3 dcdm_decode( float3 XYZp)
 {
     float3 XYZ;
-    XYZ.x = (52.37f/48.0f) * pow( XYZp.x, 2.6f);  
-    XYZ.y = (52.37f/48.0f) * pow( XYZp.y, 2.6f);  
-    XYZ.z = (52.37f/48.0f) * pow( XYZp.z, 2.6f);  
+    XYZ.x = (52.37f/48.0f) * _powf( XYZp.x, 2.6f);  
+    XYZ.y = (52.37f/48.0f) * _powf( XYZp.y, 2.6f);  
+    XYZ.z = (52.37f/48.0f) * _powf( XYZp.z, 2.6f);  
 
     return XYZ;
 }
@@ -365,9 +365,9 @@ __DEVICE__ inline float3 dcdm_decode( float3 XYZp)
 __DEVICE__ inline float3 dcdm_encode( float3 XYZ)
 {
     float3 XYZp;
-    XYZp.x = pow( (48.0f/52.37f) * XYZ.x, 1.0f/2.6f);
-    XYZp.y = pow( (48.0f/52.37f) * XYZ.y, 1.0f/2.6f);
-    XYZp.z = pow( (48.0f/52.37f) * XYZ.z, 1.0f/2.6f);
+    XYZp.x = _powf( (48.0f/52.37f) * XYZ.x, 1.0f/2.6f);
+    XYZp.y = _powf( (48.0f/52.37f) * XYZ.y, 1.0f/2.6f);
+    XYZp.z = _powf( (48.0f/52.37f) * XYZ.z, 1.0f/2.6f);
 
     return XYZp;
 }
@@ -397,7 +397,7 @@ __DEVICE__ inline float ST2084_2_Y( float N )
   if ( L < 0.0f )
     L = 0.0f;
   L = L / ( pq_c2 - pq_c3 * Np );
-  L = pow( L, 1.0f / pq_m1 );
+  L = _powf( L, 1.0f / pq_m1 );
   return L * pq_C; // returns cd/m^2
 }
 
@@ -411,9 +411,9 @@ __DEVICE__ inline float Y_2_ST2084( float C )
   // Note that this does NOT handle any of the signal range
   // considerations from 2084 - this returns full range (0 - 1)
   float L = C / pq_C;
-  float Lm = pow( L, pq_m1 );
+  float Lm = _powf( L, pq_m1 );
   float N = ( pq_c1 + pq_c2 * Lm ) / ( 1.0f + pq_c3 * Lm );
-  N = pow( N, pq_m2 );
+  N = _powf( N, pq_m2 );
   return N;
 }
 

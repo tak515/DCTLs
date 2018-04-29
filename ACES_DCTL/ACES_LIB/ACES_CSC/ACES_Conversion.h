@@ -11,7 +11,7 @@
 __DEVICE__ inline float lin_to_ACEScc( float in)
 {
   if (in <= 0)
-    return -0.3584474886f; // =(log2( pow(2.,-16.))+9.72)/17.52
+    return -0.3584474886f; // =(_log2f( _powf(2.0f,-16.0f))+9.72f)/17.52f
   else if (in < _powf(2.0f, -15.0f))
     return (_log2f( _powf(2.0f, -16.0f) + in * 0.5f) + 9.72f) / 17.52f;
   else // (in >= pow(2.,-15))
@@ -79,7 +79,7 @@ int CVmax = 940;
 if (in <= _powf(2.0f, -9.72f))
 return CVmin;
 else
-return fmax( CVmin, fmin( CVmax, round( (_log2f(in) + 2.5f) * StepsPerStop + MidCVoffset)));
+return _fmaxf( CVmin, _fminf( CVmax, round( (_log2f(in) + 2.5f) * StepsPerStop + MidCVoffset)));
 }
 
 __DEVICE__ inline float3 ACES_to_ACESproxy10( float3 ACES)
@@ -136,7 +136,7 @@ int CVmax = 3760;
 if (in <= _powf(2.0f, -9.72f))
 return CVmin;
 else
-return fmax( CVmin, fmin( CVmax, round( (_log2f(in) + 2.5f) * StepsPerStop + MidCVoffset)));
+return _fmaxf( CVmin, _fminf( CVmax, round( (_log2f(in) + 2.5f) * StepsPerStop + MidCVoffset)));
 }
 
 __DEVICE__ inline float3 ACES_to_ACESproxy12( float3 ACES)

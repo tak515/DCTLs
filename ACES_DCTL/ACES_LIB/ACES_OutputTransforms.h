@@ -1,7 +1,7 @@
 #ifndef __ACES_OUTPUTTRANSFORMS_H_INCLUDED__
 #define __ACES_OUTPUTTRANSFORMS_H_INCLUDED__
 
-#include "ACES_functions.h"
+#include "ACES_Functions.h"
 #include "ACES_Transform_Common.h"
 #include "ACES_RRT_Common.h"
 #include "ACES_ODT_Common.h"
@@ -30,16 +30,16 @@ __DEVICE__ inline float3 limit_to_primaries
 __DEVICE__ inline float3 dark_to_dim( float3 XYZ)
 {
   float3 xyY = XYZ_2_xyY(XYZ);
-  xyY.z = clamp( xyY.z, 0.0f, HALF_POS_INF);
-  xyY.z = pow( xyY.z, DIM_SURROUND_GAMMA);
+  xyY.z = _clampf( xyY.z, 0.0f, HALF_POS_INF);
+  xyY.z = _powf( xyY.z, DIM_SURROUND_GAMMA);
   return xyY_2_XYZ(xyY);
 }
 
 __DEVICE__ inline float3 dim_to_dark( float3 XYZ)
 {
   float3 xyY = XYZ_2_xyY(XYZ);
-  xyY.z = clamp( xyY.z, 0.0f, HALF_POS_INF);
-  xyY.z = pow( xyY.z, 1.0f/DIM_SURROUND_GAMMA);
+  xyY.z = _clampf( xyY.z, 0.0f, HALF_POS_INF);
+  xyY.z = _powf( xyY.z, 1.0f/DIM_SURROUND_GAMMA);
   return xyY_2_XYZ(xyY);
 }
 
@@ -63,7 +63,7 @@ __DEVICE__ inline float3 outputTransform
     // NOTE: This is a bit of a hack - probably a more direct way to do this.
     // Fix in future version
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
-    float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-_log2f(0.18f);
+    float expShift = _log2f(inv_ssts(Y_MID, PARAMS_DEFAULT))-_log2f(0.18f);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
 
     // RRT sweeteners

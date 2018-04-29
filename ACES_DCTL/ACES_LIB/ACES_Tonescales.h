@@ -85,7 +85,7 @@ __DEVICE__ float inline segmented_spline_c5_fwd( float x)
 
   }
 
-  return pow10(logy);
+  return _pow10f(logy);
   
 }
 
@@ -175,7 +175,7 @@ __DEVICE__ float inline segmented_spline_c5_rev
 
   }
   
-  return pow10( logx);
+  return _pow10f( logx);
 
 }
 
@@ -275,7 +275,7 @@ __DEVICE__ inline float segmented_spline_c9_fwd
 
   }
 
-  return pow10(logy);
+  return _pow10f(logy);
   
 }
 
@@ -382,7 +382,7 @@ __DEVICE__ float inline segmented_spline_c9_rev
 
   }
   
-  return pow10( logx);
+  return _pow10f( logx);
 }
 
 #endif
