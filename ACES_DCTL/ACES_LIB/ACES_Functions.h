@@ -1101,4 +1101,21 @@ __DEVICE__ inline float CanonLog_to_linear ( float clog_ire)
 return (_powf(10.0f, (clog_ire - 0.0730597f) / 0.529136f) - 1) / 10.1596f;
 }
 
+__DEVICE__ inline float Log3G10_to_linear ( float log3g10)
+{
+	float a, b, c, mirror, linear;
+	a = 0.224282f;
+	b = 155.975327f;
+	c = 0.01f;
+	mirror = 1.0f;
+	if (log3g10 < 0.0f)
+	{
+	mirror = -1.0f;
+	log3g10 = -log3g10;
+	}
+	linear = (_powf(10.0f, log3g10 / a) - 1.0f) / b;
+	linear = linear * mirror - c;
+	return linear;
+}
+
 #endif
