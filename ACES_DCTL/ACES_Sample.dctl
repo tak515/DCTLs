@@ -11,16 +11,47 @@ float3 aces = make_float3(p_R, p_G, p_B);
 
 //aces = ACEScc_to_ACES(aces);
 //aces = ACEScct_to_ACES(aces);
-//aces = IDT_Alexa_v3_logC_EI800(aces);
-//aces = IDT_Alexa_v3_raw_EI800_CCT6500(aces);
-//aces = IDT_Sony_SLog3_SGamut3(aces);
-//aces = IDT_Sony_SLog3_SGamut3Cine(aces);
 //aces = ADX10_to_ACES(aces);
 //aces = ADX16_to_ACES(aces);
+
+//aces = IDT_Alexa_v3_logC_EI800(aces);
+//aces = IDT_Alexa_v3_raw_EI800_CCT6500(aces);
 //aces = IDT_Panasonic_V35(aces);
+//aces = IDT_REDWideGamutRGB_Log3G10(aces);
+//aces = IDT_Canon_C100_A_D55(aces);
+//aces = IDT_Canon_C100_A_Trig(aces);
+//aces = IDT_Canon_C100mk2_A_D55(aces);
+//aces = IDT_Canon_C100mk2_A_Trig(aces);
+//aces = IDT_Canon_C300_A_D55(aces);
+//aces = IDT_Canon_C300_A_Trig(aces);
 //aces = IDT_Canon_C500_A_D55(aces);
 //aces = IDT_Canon_C500_A_Trig(aces);
-//aces = IDT_REDWideGamutRGB_Log3G10(aces)'
+//aces = IDT_Canon_C500_B_D55(aces);
+//aces = IDT_Canon_C500_B_Trig(aces);
+//aces = IDT_Canon_C500_CinemaGamut_A_D55(aces);
+//aces = IDT_Canon_C500_CinemaGamut_A_Trig(aces);
+//aces = IDT_Canon_C500_DCI_P3_A_D55(aces);
+//aces = IDT_Canon_C500_DCI_P3_A_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog_BT2020_D_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog_BT2020_D_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog_CinemaGamut_C_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog_CinemaGamut_C_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog2_BT2020_B_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog2_BT2020_B_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog2_CinemaGamut_A_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog2_CinemaGamut_A_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog3_BT2020_F_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog3_BT2020_F_Trig(aces);
+//aces = IDT_Canon_C300mk2_CanonLog3_CinemaGamut_E_D55(aces);
+//aces = IDT_Canon_C300mk2_CanonLog3_CinemaGamut_E_Trig(aces);
+//aces = IDT_Sony_SLog1_SGamut_10(aces);
+//aces = IDT_Sony_SLog1_SGamut_12(aces);
+//aces = IDT_Sony_SLog2_SGamut_Daylight_10(aces);
+//aces = IDT_Sony_SLog2_SGamut_Daylight_12(aces);
+//aces = IDT_Sony_SLog2_SGamut_Tungsten_10(aces);
+//aces = IDT_Sony_SLog2_SGamut_Tungsten_12(aces);
+//aces = IDT_Sony_SLog3_SGamut3(aces);
+//aces = IDT_Sony_SLog3_SGamut3Cine(aces);
 
 //aces = ACES_to_ACEScc(aces);
 //aces = ACES_to_ACEScct(aces);
@@ -28,8 +59,13 @@ float3 aces = make_float3(p_R, p_G, p_B);
 //aces = ACES_to_ACESproxy10(aces);
 //aces = ACES_to_ACESproxy12(aces);
 
+//aces = LMT_Analytic_1a(aces);
+//aces = LMT_Analytic_1b(aces);
+//aces = LMT_Analytic_1c(aces);
+//aces = LMT_Analytic_2(aces);
 //aces = LMT_Analytic_3(aces);
 //aces = LMT_Analytic_4(aces);
+//aces = LMT_FixHighlightImageArtifacts(aces);
 
 // Custom LMT
 /*
