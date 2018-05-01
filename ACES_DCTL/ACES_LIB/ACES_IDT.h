@@ -17,6 +17,6 @@
 #include "ACES_IDT/IDT_Panasonic_V35.h"
 #include "ACES_IDT/IDT_Canon_C500_A_D55.h"
 #include "ACES_IDT/IDT_Canon_C500_A_Trig.h"
-
+#include "ACES_IDT/IDT_REDWideGamutRGB_Log3G10.h"
 
 #endif
