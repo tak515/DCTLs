@@ -2,7 +2,7 @@
 
 __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
 {
-    const float r = p_X / 1919.0f;
+    const float r = (float)p_X / (p_Width - 1.0f);
     const float g = 0.5f;
     const float b = 0.5f;
 
