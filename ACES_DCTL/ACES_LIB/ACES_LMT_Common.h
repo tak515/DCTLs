@@ -187,7 +187,6 @@ __DEVICE__ inline float3 scale_C_at_H
 {
     float3 new_rgb = rgb;
     float3 ych = rgb_2_ych( rgb);
-    centerH = centerH;
 
     if (ych.y > 0.0f) {  // Only do the chroma adjustment if pixel is non-neutral
 
@@ -234,7 +233,6 @@ __DEVICE__ inline float3 rotate_H_in_H
     float3 ych = rgb_2_ych( rgb);
     float3 new_ych = ych;
     
-	centerH = centerH;
     float centeredHue = center_hue( ych.z, centerH);
     float f_H = cubic_basis_shaper( centeredHue, widthH);
 
