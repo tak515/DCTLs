@@ -171,16 +171,16 @@ aces = outputTransform( aces, Y_MIN, Y_MID, Y_MAX, DISPLAY_PRI, LIMITING_PRI, EO
 //aces = RRTODT_Rec2020_1000nits_15nits_ST2084(aces);
 //aces = RRTODT_Rec2020_2000nits_15nits_ST2084(aces);
 //aces = RRTODT_Rec2020_4000nits_15nits_ST2084(aces);
-//aces = RRTODT_Rec709_100nits_15nits_BT1886(aces);
-//aces = RRTODT_Rec709_100nits_15nits_sRGB(aces);
+//aces = RRTODT_Rec709_100nits_10nits_BT1886(aces);
+//aces = RRTODT_Rec709_100nits_10nits_sRGB(aces);
 
 //aces = InvRRTODT_P3D65_108nits_7_2nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_1000nits_15nits_HLG(aces);
 //aces = InvRRTODT_Rec2020_1000nits_15nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_2000nits_15nits_ST2084(aces);
 //aces = InvRRTODT_Rec2020_4000nits_15nits_ST2084(aces);
-//aces = InvRRTODT_Rec709_100nits_15nits_BT1886(aces);
-//aces = InvRRTODT_Rec709_100nits_15nits_sRGB(aces);
+//aces = InvRRTODT_Rec709_100nits_10nits_BT1886(aces);
+//aces = InvRRTODT_Rec709_100nits_10nits_sRGB(aces);
 
 return aces;
 
